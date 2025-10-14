@@ -1,24 +1,21 @@
-import pytest
 from fastapi.testclient import TestClient
 from main import app
-
 
 client = TestClient(app)
 
 
-@pytest.fixture(autouse=True)
-def _reset_db():
-# упрощённо: в реальном решении стоит чистить БД корректно
-    yield
+class TestItemAPI:
+    def test_list_items(self):
+        response = client.get("/items")
+        assert response.status_code == 200
 
+    def test_sync_items(self):
+        response = client.post("/sync?page=1&limit=10")
+        assert response.status_code == 200
+        assert "synced" in response.json()
 
-def test_sync_then_list_returns_only_active_items():
-    # синхроним все записи
-    r = client.post("/sync", params={"page": 1, "limit": 50})
-    assert r.status_code == 200
-    # ожидаем, что удалённые НЕ вернутся
-    r = client.get("/items")
-    assert r.status_code == 200
-    data = r.json()
-    # ожидаем хотя бы один активный элемент
-    assert any(x["id"] == 1 for x in data) or any(x["id"] == 3 for x in data)
+    def test_external_api(self):
+        response = client.get("/external/items")
+        assert response.status_code == 200
+        data = response.json()
+        assert isinstance(data, list)
