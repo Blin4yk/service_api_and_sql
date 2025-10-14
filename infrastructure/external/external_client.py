@@ -1,14 +1,18 @@
-import httpx
 from typing import List
-from core.domain.repositories import IExternalClient
+
+import httpx
+
 from core.domain.models import ItemIn
+from core.domain.repositories import IExternalClient
 
 
 class ExternalClient(IExternalClient):
     def __init__(self, base_url: str):
         self.base_url = base_url
 
-    def get_items(self, page: int = 1, limit: int = 50, since: str | None = None) -> List[ItemIn]:
+    def get_items(
+        self, page: int = 1, limit: int = 50, since: str | None = None
+    ) -> List[ItemIn]:
         params = {"page": page, "limit": limit}
         if since:
             params["since"] = since

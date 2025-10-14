@@ -6,9 +6,24 @@ from fastapi.responses import JSONResponse
 fake_api = FastAPI()
 
 _FAKE = [
-    {"id": 1, "name": "alpha", "updated_at": (datetime.utcnow() - timedelta(days=2)).isoformat(), "is_deleted": False},
-    {"id": 2, "name": "beta", "updated_at": (datetime.utcnow() - timedelta(days=1)).isoformat(), "is_deleted": True },
-    {"id": 3, "name": "gamma", "updated_at": (datetime.utcnow()).isoformat(), "is_deleted": False},
+    {
+        "id": 1,
+        "name": "alpha",
+        "updated_at": (datetime.utcnow() - timedelta(days=2)).isoformat(),
+        "is_deleted": False,
+    },
+    {
+        "id": 2,
+        "name": "beta",
+        "updated_at": (datetime.utcnow() - timedelta(days=1)).isoformat(),
+        "is_deleted": True,
+    },
+    {
+        "id": 3,
+        "name": "gamma",
+        "updated_at": (datetime.utcnow()).isoformat(),
+        "is_deleted": False,
+    },
 ]
 
 

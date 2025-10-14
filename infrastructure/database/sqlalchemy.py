@@ -1,8 +1,10 @@
-from sqlalchemy import Integer, String, DateTime, Boolean
+from sqlalchemy import Boolean, DateTime, Integer, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
 
 class Base(DeclarativeBase):
     pass
+
 
 class Item(Base):
     __tablename__ = "items"

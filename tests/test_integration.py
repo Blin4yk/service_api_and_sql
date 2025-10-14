@@ -21,5 +21,5 @@ class TestIntegration:
         assert response.status_code == 200
         data = response.json()
         assert isinstance(data, list)
-        active_items = [item for item in data if not item.get('is_deleted', False)]
+        active_items = [item for item in data if not item.get("is_deleted", False)]
         assert len(active_items) >= 1
