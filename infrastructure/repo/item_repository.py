@@ -37,7 +37,7 @@ class ItemRepository(IItemRepository):
 
     def list_active(self) -> List[ItemOut]:
         try:
-            stmt = select(Item).where(not Item.is_deleted)
+            stmt = select(Item).where(Item.is_deleted == False)
             rows = self.session.execute(stmt).scalars()
             return [ItemOut.model_validate(r.__dict__) for r in rows]
         except SQLAlchemyError:
